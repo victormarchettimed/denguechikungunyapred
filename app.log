@@ -1,0 +1,29 @@
+2024-07-03 17:11:49,280 INFO  * Detected change in 'C:\\Users\\victo_cmh09xh\\Desktop\\datasuscopia\\Flask\\app.py', reloading
+2024-07-03 17:11:49,407 INFO  * Restarting with stat
+2024-07-03 17:11:50,844 WARNING  * Debugger is active!
+2024-07-03 17:11:50,860 INFO  * Debugger PIN: 220-194-333
+2024-07-03 17:11:54,394 INFO 127.0.0.1 - - [03/Jul/2024 17:11:54] "[31m[1mGET /predict HTTP/1.1[0m" 405 -
+2024-07-03 17:11:58,754 INFO 127.0.0.1 - - [03/Jul/2024 17:11:58] "GET / HTTP/1.1" 200 -
+2024-07-03 17:11:58,864 INFO 127.0.0.1 - - [03/Jul/2024 17:11:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-03 17:12:04,552 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-07-03 17:12:04,552 INFO [33mPress CTRL+C to quit[0m
+2024-07-03 17:12:04,552 INFO  * Restarting with stat
+2024-07-03 17:12:05,852 WARNING  * Debugger is active!
+2024-07-03 17:12:05,868 INFO  * Debugger PIN: 220-194-333
+2024-07-03 17:12:05,882 INFO 127.0.0.1 - - [03/Jul/2024 17:12:05] "GET / HTTP/1.1" 200 -
+2024-07-03 17:12:05,965 INFO 127.0.0.1 - - [03/Jul/2024 17:12:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-03 17:12:10,266 DEBUG Features recebidas: [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+2024-07-03 17:12:10,270 DEBUG Probabilidade de Chikungunya: 0.4339062064094128
+2024-07-03 17:12:10,270 DEBUG Probabilidade de Dengue: 0.5660937935905872
+2024-07-03 17:12:10,270 DEBUG Predição: Dengue
+2024-07-03 17:12:10,272 INFO 127.0.0.1 - - [03/Jul/2024 17:12:10] "POST /predict HTTP/1.1" 200 -
+2024-07-03 17:12:10,322 INFO 127.0.0.1 - - [03/Jul/2024 17:12:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-03 17:13:01,425 DEBUG Features recebidas: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+2024-07-03 17:13:01,427 DEBUG Probabilidade de Chikungunya: 0.9405740639187997
+2024-07-03 17:13:01,427 DEBUG Probabilidade de Dengue: 0.05942593608120032
+2024-07-03 17:13:01,427 DEBUG Predição: Chikungunya
+2024-07-03 17:13:01,427 INFO 127.0.0.1 - - [03/Jul/2024 17:13:01] "POST /predict HTTP/1.1" 200 -
+2024-07-03 17:13:01,488 INFO 127.0.0.1 - - [03/Jul/2024 17:13:01] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-03 17:20:56,444 INFO  * Detected change in 'C:\\Users\\victo_cmh09xh\\Desktop\\datasuscopia\\Flask\\app.py', reloading
+2024-07-03 17:20:56,927 INFO  * Restarting with stat

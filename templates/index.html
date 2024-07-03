@@ -3,28 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modelo de Previsão</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Disease Prediction Model</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-    <div class="container">
-        <h1>Previsão com Modelo de IA</h1>
-        <form action="/predict" method="post">
-            <label for="arthralgia">ARTHRALGIA</label><input type="number" name="arthralgia" required><br>
-            <label for="retro_orbital_pain">RETRO_ORBITAL_PAIN</label><input type="number" name="retro_orbital_pain" required><br>
-            <label for="nausea">NAUSEA</label><input type="number" name="nausea" required><br>
-            <label for="exanthem">EXANTHEM</label><input type="number" name="exanthem" required><br>
-            <label for="arthritis">ARTHRITIS</label><input type="number" name="arthritis" required><br>
-            <label for="back_pain">BACK_PAIN</label><input type="number" name="back_pain" required><br>
-            <label for="myalgia">MYALGIA</label><input type="number" name="myalgia" required><br>
-            <label for="vomiting">VOMITING</label><input type="number" name="vomiting" required><br>
-            <label for="headache">HEADACHE</label><input type="number" name="headache" required><br>
-            <label for="fever">FEVER</label><input type="number" name="fever" required><br>
-            <label for="conjunctivitis">CONJUNCTIVITIS</label><input type="number" name="conjunctivitis" required><br>
-            <label for="petechia">PETECHIA</label><input type="number" name="petechia" required><br>
-            <button type="submit">Calcular Pontuação</button>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Disease Prediction Model</h1>
+        <form id="prediction-form" class="bg-white p-4 shadow-md rounded-lg" action="/predict" method="post">
+            <div class="mb-4">
+                <label for="fever" class="block text-sm font-medium text-gray-700">Fever</label>
+                <input type="checkbox" name="fever" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="myalgia" class="block text-sm font-medium text-gray-700">Myalgia</label>
+                <input type="checkbox" name="myalgia" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="headache" class="block text-sm font-medium text-gray-700">Headache</label>
+                <input type="checkbox" name="headache" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="exanthem" class="block text-sm font-medium text-gray-700">Exanthem</label>
+                <input type="checkbox" name="exanthem" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="vomiting" class="block text-sm font-medium text-gray-700">Vomiting</label>
+                <input type="checkbox" name="vomiting" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="nausea" class="block text-sm font-medium text-gray-700">Nausea</label>
+                <input type="checkbox" name="nausea" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="back_pain" class="block text-sm font-medium text-gray-700">Back Pain</label>
+                <input type="checkbox" name="back_pain" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="conjunctivitis" class="block text-sm font-medium text-gray-700">Conjunctivitis</label>
+                <input type="checkbox" name="conjunctivitis" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="arthritis" class="block text-sm font-medium text-gray-700">Arthritis</label>
+                <input type="checkbox" name="arthritis" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="arthralgia" class="block text-sm font-medium text-gray-700">Arthralgia</label>
+                <input type="checkbox" name="arthralgia" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="petechia" class="block text-sm font-medium text-gray-700">Petechia</label>
+                <input type="checkbox" name="petechia" class="mt-1">
+            </div>
+            <div class="mb-4">
+                <label for="retro_orbital_pain" class="block text-sm font-medium text-gray-700">Retro-Orbital Pain</label>
+                <input type="checkbox" name="retro_orbital_pain" class="mt-1">
+            </div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Calculate Score</button>
         </form>
-        <h2>{{ prediction_text }}</h2>
+        <div class="mt-6">
+            <h2 class="text-xl font-semibold">Prediction Result</h2>
+            <p id="prediction-text" class="mt-2"></p>
+            <canvas id="prediction-chart" class="mt-4"></canvas>
+        </div>
+        <div class="mt-6 p-4 bg-yellow-100 text-yellow-800 rounded-lg">
+            <strong>Warning:</strong> This model has not been tested in randomized clinical trials and is not recommended for clinical practice. Use it for academic purposes only.
+        </div>
     </div>
+
+    <script>
+        document.getElementById('prediction-form').onsubmit = function(event) {
+            event.preventDefault();
+            fetch('/predict', {
+                method: 'POST',
+                body: new FormData(event.target)
+            }).then(response => response.json()).then(data => {
+                document.getElementById('prediction-text').textContent = `${data.prediction_text} (Threshold: ${data.optimal_threshold})`;
+
+                const ctx = document.getElementById('prediction-chart').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Dengue', 'Chikungunya'],
+                        datasets: [{
+                            data: [data.dengue_prob, data.chikungunya_prob],
+                            backgroundColor: ['#36A2EB', '#FF6384'],
+                            hoverBackgroundColor: ['#36A2EB', '#FF6384']
+                        }]
+                    },
+                    options: {
+                        cutout: '50%',
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed.toFixed(2);
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        };
+    </script>
 </body>
 </html>
