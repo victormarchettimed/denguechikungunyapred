@@ -10,54 +10,57 @@
 <body class="bg-gray-100 text-gray-800">
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Disease Prediction Model</h1>
+        <p>This predictive model is designed for differential diagnosis between dengue and chikungunya. Developed by medical students from Centro Universitário do Espírito Santo using data from SINAN from 2018 to 2022. For prediction, please indicate the symptoms presented by the patient.</p>
         <form id="prediction-form" class="bg-white p-4 shadow-md rounded-lg" action="/predict" method="post">
-            <div class="mb-4">
-                <label for="fever" class="block text-sm font-medium text-gray-700">Fever</label>
-                <input type="checkbox" name="fever" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="myalgia" class="block text-sm font-medium text-gray-700">Myalgia</label>
-                <input type="checkbox" name="myalgia" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="headache" class="block text-sm font-medium text-gray-700">Headache</label>
-                <input type="checkbox" name="headache" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="exanthem" class="block text-sm font-medium text-gray-700">Exanthem</label>
-                <input type="checkbox" name="exanthem" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="vomiting" class="block text-sm font-medium text-gray-700">Vomiting</label>
-                <input type="checkbox" name="vomiting" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="nausea" class="block text-sm font-medium text-gray-700">Nausea</label>
-                <input type="checkbox" name="nausea" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="back_pain" class="block text-sm font-medium text-gray-700">Back Pain</label>
-                <input type="checkbox" name="back_pain" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="conjunctivitis" class="block text-sm font-medium text-gray-700">Conjunctivitis</label>
-                <input type="checkbox" name="conjunctivitis" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="arthritis" class="block text-sm font-medium text-gray-700">Arthritis</label>
-                <input type="checkbox" name="arthritis" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="arthralgia" class="block text-sm font-medium text-gray-700">Arthralgia</label>
-                <input type="checkbox" name="arthralgia" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="petechia" class="block text-sm font-medium text-gray-700">Petechia</label>
-                <input type="checkbox" name="petechia" class="mt-1">
-            </div>
-            <div class="mb-4">
-                <label for="retro_orbital_pain" class="block text-sm font-medium text-gray-700">Retro-Orbital Pain</label>
-                <input type="checkbox" name="retro_orbital_pain" class="mt-1">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="mb-4">
+                    <label for="fever" class="block text-sm font-medium text-gray-700">Fever</label>
+                    <input type="checkbox" name="fever" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="myalgia" class="block text-sm font-medium text-gray-700">Myalgia</label>
+                    <input type="checkbox" name="myalgia" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="headache" class="block text-sm font-medium text-gray-700">Headache</label>
+                    <input type="checkbox" name="headache" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="exanthem" class="block text-sm font-medium text-gray-700">Exanthem</label>
+                    <input type="checkbox" name="exanthem" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="vomiting" class="block text-sm font-medium text-gray-700">Vomiting</label>
+                    <input type="checkbox" name="vomiting" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="nausea" class="block text-sm font-medium text-gray-700">Nausea</label>
+                    <input type="checkbox" name="nausea" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="back_pain" class="block text-sm font-medium text-gray-700">Back Pain</label>
+                    <input type="checkbox" name="back_pain" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="conjunctivitis" class="block text-sm font-medium text-gray-700">Conjunctivitis</label>
+                    <input type="checkbox" name="conjunctivitis" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="arthritis" class="block text-sm font-medium text-gray-700">Arthritis</label>
+                    <input type="checkbox" name="arthritis" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="arthralgia" class="block text-sm font-medium text-gray-700">Arthralgia</label>
+                    <input type="checkbox" name="arthralgia" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="petechia" class="block text-sm font-medium text-gray-700">Petechia</label>
+                    <input type="checkbox" name="petechia" class="mt-1">
+                </div>
+                <div class="mb-4">
+                    <label for="retro_orbital_pain" class="block text-sm font-medium text-gray-700">Retro-Orbital Pain</label>
+                    <input type="checkbox" name="retro_orbital_pain" class="mt-1">
+                </div>
             </div>
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Calculate Score</button>
         </form>
@@ -81,7 +84,10 @@
                 document.getElementById('prediction-text').textContent = `${data.prediction_text} (Threshold: ${data.optimal_threshold})`;
 
                 const ctx = document.getElementById('prediction-chart').getContext('2d');
-                const chart = new Chart(ctx, {
+                if (window.predictionChart) {
+                    window.predictionChart.destroy();
+                }
+                window.predictionChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
                         labels: ['Dengue', 'Chikungunya'],
