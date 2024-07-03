@@ -11,6 +11,9 @@
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Disease Prediction Model</h1>
         <p>This predictive model is designed for differential diagnosis between dengue and chikungunya. Developed by medical students from Centro Universitário do Espírito Santo using data from SINAN from 2018 to 2022. For prediction, please indicate the symptoms presented by the patient.</p>
+        <div class="mt-6 p-4 bg-yellow-100 text-yellow-800 rounded-lg">
+            <strong>Warning:</strong> This model has not been tested in randomized clinical trials and is not recommended for clinical practice. Use it for academic purposes only.
+        </div>
         <form id="prediction-form" class="bg-white p-4 shadow-md rounded-lg" action="/predict" method="post">
             <div class="grid grid-cols-2 gap-4">
                 <div class="mb-4">
@@ -68,9 +71,6 @@
             <h2 class="text-xl font-semibold">Prediction Result</h2>
             <p id="prediction-text" class="mt-2"></p>
             <canvas id="prediction-chart" class="mt-4"></canvas>
-        </div>
-        <div class="mt-6 p-4 bg-yellow-100 text-yellow-800 rounded-lg">
-            <strong>Warning:</strong> This model has not been tested in randomized clinical trials and is not recommended for clinical practice. Use it for academic purposes only.
         </div>
     </div>
 
