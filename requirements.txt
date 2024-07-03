@@ -4,3 +4,6 @@ numpy
 scikit-learn
 werkzeug
 imbalanced-learn
+pandas
+matplotlib
+seaborn
