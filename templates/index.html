@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Previsão</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Previsão com Modelo de IA</h1>
+        <form action="/predict" method="post">
+            <label for="arthralgia">ARTHRALGIA</label><input type="number" name="arthralgia" required><br>
+            <label for="retro_orbital_pain">RETRO_ORBITAL_PAIN</label><input type="number" name="retro_orbital_pain" required><br>
+            <label for="nausea">NAUSEA</label><input type="number" name="nausea" required><br>
+            <label for="exanthem">EXANTHEM</label><input type="number" name="exanthem" required><br>
+            <label for="arthritis">ARTHRITIS</label><input type="number" name="arthritis" required><br>
+            <label for="back_pain">BACK_PAIN</label><input type="number" name="back_pain" required><br>
+            <label for="myalgia">MYALGIA</label><input type="number" name="myalgia" required><br>
+            <label for="vomiting">VOMITING</label><input type="number" name="vomiting" required><br>
+            <label for="headache">HEADACHE</label><input type="number" name="headache" required><br>
+            <label for="fever">FEVER</label><input type="number" name="fever" required><br>
+            <label for="conjunctivitis">CONJUNCTIVITIS</label><input type="number" name="conjunctivitis" required><br>
+            <label for="petechia">PETECHIA</label><input type="number" name="petechia" required><br>
+            <button type="submit">Calcular Pontuação</button>
+        </form>
+        <h2>{{ prediction_text }}</h2>
+    </div>
+</body>
+</html>
